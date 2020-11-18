@@ -90,7 +90,7 @@ select {
   background: rgb(224, 194, 160);
 }
 
-.hihat.active {
+.hihat-pad.active {
   background: rgb(241, 158, 64);
 }
 
@@ -98,4 +98,13 @@ select {
   margin-top: 4rem;
   padding: 2rem 4rem;
   font-size: 3rem;
+}
+
+@keyframes padAnimation {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.3);
+  }
 }
