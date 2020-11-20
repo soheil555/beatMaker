@@ -7,6 +7,9 @@ class DrumKit {
     this.hihatSound = document.querySelector(".hihat-sound");
     this.index = 0;
     this.bpm = bpm;
+    this.isPlaying = null;
+    this.selects = document.querySelectorAll("select");
+    this.mutes = document.querySelectorAll(".mute");
   }
 
   repeat() {
@@ -36,13 +39,70 @@ class DrumKit {
   }
 
   start() {
-    setInterval(() => {
-      this.repeat();
-    }, (60 / this.bpm) * 1000);
+    if (!this.isPlaying) {
+      this.isPlaying = setInterval(() => {
+        this.repeat();
+      }, (60 / this.bpm) * 1000);
+      this.playBtn.innerHTML = "Stop";
+    } else {
+      clearInterval(this.isPlaying);
+      this.isPlaying = null;
+      this.playBtn.innerText = "Play";
+    }
+  }
+
+  changeSound(e) {
+    const soundLocation = e.target.value;
+    const soundType = e.target.name;
+
+    switch (soundType) {
+      case "kick-select":
+        this.kickSound.src = soundLocation;
+        break;
+      case "snare-select":
+        this.snareSound.src = soundLocation;
+        break;
+      case "hihat-select":
+        this.hihatSound.src = soundLocation;
+        break;
+    }
+  }
+
+  doMute(e) {
+    const soundType = e.target.getAttribute("data-track");
+    e.target.classList.toggle("active");
+
+    if (e.target.classList.contains("active")) {
+      switch (soundType) {
+        case "0":
+          this.kickSound.volume = 0;
+          break;
+        case "1":
+          this.snareSound.volume = 0;
+          break;
+        case "2":
+          this.hihatSound.volume = 0;
+          break;
+      }
+    } else {
+      switch (soundType) {
+        case "0":
+          this.kickSound.volume = 1;
+          break;
+        case "1":
+          this.snareSound.volume = 1;
+          break;
+        case "2":
+          this.hihatSound.volume = 1;
+          break;
+      }
+    }
   }
 }
 
 const drum = new DrumKit(300);
+
+//Event Listeners
 
 drum.playBtn.addEventListener("click", () => {
   drum.start();
@@ -55,5 +115,17 @@ drum.pads.forEach(pad => {
 
   pad.addEventListener("animationend", () => {
     pad.style.animation = "";
+  });
+});
+
+drum.selects.forEach(select => {
+  select.addEventListener("change", e => {
+    drum.changeSound(e);
+  });
+});
+
+drum.mutes.forEach(mute => {
+  mute.addEventListener("click", e => {
+    drum.doMute(e);
   });
 });

@@ -16,6 +16,10 @@ h1 {
   font-size: 3rem;
 }
 
+i {
+  pointer-events: none;
+}
+
 .main {
   display: flex;
   flex-direction: column;
@@ -98,6 +102,10 @@ select {
   margin-top: 4rem;
   padding: 2rem 4rem;
   font-size: 3rem;
+}
+
+.mute.active {
+  opacity: 0.5;
 }
 
 @keyframes padAnimation {
