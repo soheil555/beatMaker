@@ -108,6 +108,27 @@ select {
   opacity: 0.5;
 }
 
+.tempo {
+  margin: 2rem;
+  width: 30%;
+}
+
+.tempo-select {
+  -webkit-appearance: none;
+  background: rgb(88, 88, 88);
+  width: 100%;
+  padding: 0.3rem;
+  cursor: pointer;
+  border-radius: 1rem;
+  position: relative;
+}
+
+.tempo p {
+  font-size: 2rem;
+  margin: 2rem;
+  text-align: center;
+}
+
 @keyframes padAnimation {
   from {
     transform: scale(1);
